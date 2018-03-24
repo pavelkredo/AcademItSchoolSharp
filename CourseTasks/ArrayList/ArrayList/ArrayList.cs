@@ -160,7 +160,7 @@ namespace ArrayList.ArrayList
             {
                 if (i == index)
                 {
-                    elements[i] = item;                   
+                    elements[i] = item;
                 }
                 else
                 {
