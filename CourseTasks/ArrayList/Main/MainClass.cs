@@ -49,6 +49,9 @@ namespace ArrayList.Main
                 Console.Write(element + " ");
             }
             Console.WriteLine();
+
+            List<string> list2 = new List<string> { "abc", null, "cba" };
+            Console.WriteLine(list2.IndexOf(null));
         }
     }
 }
