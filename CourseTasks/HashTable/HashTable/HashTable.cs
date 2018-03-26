@@ -1,60 +1,56 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HashTable.HashTable
 {
     public class HashTable<T> : ICollection<T>
     {
         T[] elements;
-        int count;
-        int capacity;
-        bool isReadOnly = false;
 
         public HashTable(int capacity)
         {
-            this.capacity = capacity;
             elements = new T[capacity];
         }
 
-        public int Count
+        public int Count { get; set; }
+
+        public int Capacity
         {
-            get { return count; }
-            set { count = value; }
+            get { return elements.Length; }
         }
 
         public bool IsReadOnly
         {
-            get { return isReadOnly; }
-            set { isReadOnly = value; }
+            get { return false; }
         }
 
         public void IncreaseCapacity()
         {
-            capacity *= 2;
             T[] temp = elements;
-            elements = new T[capacity];
-            Array.Copy(temp, elements, count);
+            elements = new T[Capacity * 2];
+            Array.Copy(temp, elements, Count);
         }
 
         public void Add(T item)
         {
-            if(count == capacity)
+            if (Count == Capacity)
             {
                 IncreaseCapacity();
             }
 
-            elements[count] = item;
-            count++;
+            elements[Count] = item;
+            Count++;
         }
 
         public void Clear()
         {
-            elements = new T[capacity];
-            count = 0;
+            if (Count == 0)
+            {
+                throw new ArgumentNullException("Список пуст.");
+            }
+
+            Count = 0;
         }
 
         public bool Contains(T item)
@@ -71,21 +67,21 @@ namespace HashTable.HashTable
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex > count)
+            if (arrayIndex < 0 || arrayIndex > Count)
             {
                 throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
 
             int length = arrayIndex + array.Length;
 
-            while (length > capacity)
+            while (length > Capacity)
             {
                 IncreaseCapacity();
             }
 
-            if (length > count)
+            if (length > Count)
             {
-                count = length;
+                Count = length;
             }
 
             for (int i = arrayIndex, j = 0; i < length; i++, j++)
@@ -96,20 +92,27 @@ namespace HashTable.HashTable
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < count; i++)
+            int originalCount = Count;
+
+            for (int i = 0; i < Count; i++)
             {
+                if (originalCount != Count)
+                {
+                    throw new SystemException("Хэш-таблица была изменена во время итерирования.");
+                }
+
                 yield return elements[i];
             }
         }
 
         public bool Remove(T item)
         {
-            T[] temp = new T[count];
-            Array.Copy(elements, temp, count);
-            elements = new T[capacity];
+            T[] temp = new T[Count];
+            Array.Copy(elements, temp, Count);
+            elements = new T[Capacity];
             bool isCoincidence = false;
 
-            for (int i = 0, j = 0; j < count; i++, j++)
+            for (int i = 0, j = 0; j < Count; i++, j++)
             {
                 if (temp[i].Equals(item))
                 {
@@ -119,12 +122,13 @@ namespace HashTable.HashTable
 
                 elements[i] = temp[j];
 
-                if (j == count - 1 && isCoincidence)
+                if (j == Count - 1 && isCoincidence)
                 {
-                    count--;
+                    Count--;
                     return true;
                 }
             }
+
             throw new ArgumentNullException("Элемент не найден.");
         }
 
