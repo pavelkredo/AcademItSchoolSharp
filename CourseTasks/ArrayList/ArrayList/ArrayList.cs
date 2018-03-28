@@ -8,6 +8,7 @@ namespace ArrayList.ArrayList
     public class List<T> : IList<T>
     {
         private T[] elements;
+        private int changes;
 
         public List()
         {
@@ -52,10 +53,11 @@ namespace ArrayList.ArrayList
                 }
 
                 elements[index] = value;
+                changes++;
             }
         }
 
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         public int Capacity
         {
@@ -83,60 +85,35 @@ namespace ArrayList.ArrayList
 
             elements[Count] = item;
             Count++;
+            changes++;
         }
 
         public void Clear()
         {
-            if (Count == 0)
-            {
-                throw new ArgumentNullException("Список пуст.");
-            }
-
             Count = 0;
+            changes++;
         }
 
         public bool Contains(T item)
         {
-            if (IndexOf(item) == -1)
-            {
-                return false;
-            }
-
-            return true;
+            return IndexOf(item) == -1;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex > Count)
+            for (int i = arrayIndex, j = 0; j < Count; i++, j++)
             {
-                throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
-            }
-
-            int length = arrayIndex + array.Length;
-
-            while (length > Capacity)
-            {
-                IncreaseCapacity();
-            }
-
-            if (length > Count)
-            {
-                Count = length;
-            }
-
-            for (int i = arrayIndex, j = 0; i < length; i++, j++)
-            {
-                elements[i] = array[j];
+                array[i] = elements[j];
             }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            int originalCount = Count;
+            int temp = changes;
 
             for (int i = 0; i < Count; i++)
             {
-                if (originalCount != Count)
+                if (temp != changes)
                 {
                     throw new SystemException("Список был изменен во время итерирования.");
                 }
@@ -149,7 +126,7 @@ namespace ArrayList.ArrayList
         {
             for (int i = 0; i < Count; i++)
             {
-                if (ReferenceEquals(elements[i], item) || elements[i].Equals(item))
+                if (Equals(elements[i], item))
                 {
                     return i;
                 }
@@ -169,50 +146,52 @@ namespace ArrayList.ArrayList
                 IncreaseCapacity();
             }
 
-            T[] temp = new T[Count];
-            Array.Copy(elements, temp, Count);
+            T temp1 = default(T);
+            bool isInsert = false;
 
-            for (int i = 0, j = 0; i <= Count; i++)
+            for (int i = 0; i <= Count; i++)
             {
                 if (i == index)
                 {
+                    temp1 = elements[i];
                     elements[i] = item;
+                    isInsert = true;
                 }
-                else
+                else if (isInsert)
                 {
-                    elements[i] = temp[j];
-                    j++;
+                    T temp2 = elements[i];
+                    elements[i] = temp1;
+                    temp1 = temp2;
                 }
             }
 
             Count++;
+            changes++;
         }
 
         public bool Remove(T item)
         {
-            T[] temp = new T[Count];
-            Array.Copy(elements, temp, Count);
-            elements = new T[Capacity];
             bool isCoincidence = false;
 
             for (int i = 0, j = 0; j < Count; i++, j++)
             {
-                if (temp[i].Equals(item))
+                if (elements[i].Equals(item))
                 {
                     j++;
                     isCoincidence = true;
                 }
 
-                elements[i] = temp[j];
+                elements[i] = elements[j];
 
                 if (j == Count - 1 && isCoincidence)
                 {
                     Count--;
+                    changes++;
                     return true;
                 }
             }
 
-            throw new ArgumentNullException("Элемент не найден.");
+            return false;
         }
 
         public void RemoveAt(int index)
@@ -222,10 +201,6 @@ namespace ArrayList.ArrayList
                 throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
 
-            T[] temp = new T[Count];
-            Array.Copy(elements, temp, Count);
-            elements = new T[Capacity];
-
             for (int i = 0, j = 0; j < Count; i++, j++)
             {
                 if (i == index && index != Count - 1)
@@ -233,10 +208,11 @@ namespace ArrayList.ArrayList
                     j++;
                 }
 
-                elements[i] = temp[j];
+                elements[i] = elements[j];
             }
 
             Count--;
+            changes++;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -246,11 +222,6 @@ namespace ArrayList.ArrayList
 
         public void TrimExcess()
         {
-            if (Count == Capacity)
-            {
-                throw new IndexOutOfRangeException("Количество элементов равно размерности.");
-            }
-
             T[] temp = elements;
             elements = new T[Count];
             Array.Copy(temp, elements, Count);

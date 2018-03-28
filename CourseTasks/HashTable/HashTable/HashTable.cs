@@ -13,7 +13,7 @@ namespace HashTable.HashTable
             elements = new T[capacity];
         }
 
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         public int Capacity
         {
