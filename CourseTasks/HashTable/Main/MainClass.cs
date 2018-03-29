@@ -15,10 +15,18 @@ namespace HashTable.Main
             }
             Console.WriteLine();
 
-            if(hashTable.Contains(3))
+            if(hashTable.Contains(4))
             {
                 Console.WriteLine("Хэш-таблица содержит элемент.");
             }
+
+            hashTable.Remove(12);
+
+            foreach (int element in hashTable)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace HashTable.HashTable
 {
     public class HashTable<T> : ICollection<T>
     {
-        List<T>[] elements;
+        private List<T>[] elements;
         private int changes;
 
         public HashTable(int capacity)
@@ -23,13 +23,25 @@ namespace HashTable.HashTable
 
         public void Add(T item)
         {
+            if (Count == elements.Length)
+            {
+                List<T>[] temp = elements;
+                elements = new List<T>[Count * 2];
+                Array.Copy(temp, elements, Count);
+            }
+
             elements[Count] = new List<T>() { item };
             Count++;
+            changes++;
         }
 
         public void Clear()
         {
-            Count = 0;
+            if (Count != 0)
+            {
+                Count = 0;
+                changes++;
+            }
         }
 
         public bool Contains(T item)
@@ -71,13 +83,13 @@ namespace HashTable.HashTable
 
         public IEnumerator<T> GetEnumerator()
         {
-            int originalCount = Count;
+            int initialChanges = changes;
 
             for (int i = 0; i < Count; i++)
             {
-                if (originalCount != Count)
+                if (initialChanges != changes)
                 {
-                    throw new SystemException("Хэш-таблица была изменена во время итерирования.");
+                    throw new InvalidOperationException("Хэш-таблица была изменена во время итерирования.");
                 }
 
                 foreach (T element in elements[i])
@@ -89,26 +101,15 @@ namespace HashTable.HashTable
 
         public bool Remove(T item)
         {
-            bool isCoincidence = false;
-
-            for (int i = 0, j = 0; j < Count; i++, j++)
+            for (int i = 0; i < Count; i++)
             {
-                foreach (T element in elements[i])
+                int index = elements[i].IndexOf(item);
+
+                if (index != -1)
                 {
-                    if (elements[i].Equals(item))
-                    {
-                        j++;
-                        isCoincidence = true;
-                    }
-
-                    elements[i] = elements[j];
-
-                    if (j == Count - 1 && isCoincidence)
-                    {
-                        Count--;
-                        changes++;
-                        return true;
-                    }
+                    elements[i].Remove(item);
+                    changes++;
+                    return true;
                 }
             }
 
