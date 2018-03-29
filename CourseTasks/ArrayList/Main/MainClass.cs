@@ -58,6 +58,29 @@ namespace ArrayList.Main
                 Console.Write(element + " ");
             }
             Console.WriteLine();
+
+            if(list.Contains(4))
+            {
+                Console.WriteLine("Список содержит элемент.");
+            }
+
+            System.Collections.Generic.List<int> list3 = new System.Collections.Generic.List<int>() { 3, 6, 8, 15, 20 };
+
+            list.Insert(2, 20);
+
+            foreach(int element in list)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+
+            list.RemoveAt(2);
+
+            foreach (int element in list)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
         }
     }
 }

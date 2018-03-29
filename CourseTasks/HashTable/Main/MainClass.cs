@@ -11,7 +11,13 @@ namespace HashTable.Main
 
             foreach(int element in hashTable)
             {
-                Console.WriteLine(element);
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+
+            if(hashTable.Contains(3))
+            {
+                Console.WriteLine("Хэш-таблица содержит элемент.");
             }
         }
     }

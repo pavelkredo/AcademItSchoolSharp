@@ -6,60 +6,42 @@ namespace HashTable.HashTable
 {
     public class HashTable<T> : ICollection<T>
     {
-        T[] elements;
+        List<T>[] elements;
+        private int changes;
 
         public HashTable(int capacity)
         {
-            elements = new T[capacity];
+            elements = new List<T>[capacity];
         }
 
         public int Count { get; private set; }
-
-        public int Capacity
-        {
-            get { return elements.Length; }
-        }
 
         public bool IsReadOnly
         {
             get { return false; }
         }
 
-        public void IncreaseCapacity()
-        {
-            T[] temp = elements;
-            elements = new T[Capacity * 2];
-            Array.Copy(temp, elements, Count);
-        }
-
         public void Add(T item)
         {
-            if (Count == Capacity)
-            {
-                IncreaseCapacity();
-            }
-
-            elements[Count] = item;
+            elements[Count] = new List<T>() { item };
             Count++;
         }
 
         public void Clear()
         {
-            if (Count == 0)
-            {
-                throw new ArgumentNullException("Список пуст.");
-            }
-
             Count = 0;
         }
 
         public bool Contains(T item)
         {
-            foreach (T element in elements)
+            for (int i = 0; i < Count; i++)
             {
-                if (element.Equals(item))
+                foreach (T element in elements[i])
                 {
-                    return true;
+                    if (Equals(element, item))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -67,26 +49,23 @@ namespace HashTable.HashTable
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex > Count)
+            if (array == null || arrayIndex + Count > array.Length)
             {
-                throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
+                throw new ArgumentNullException("Массив не задан.");
             }
 
-            int length = arrayIndex + array.Length;
-
-            while (length > Capacity)
+            if (arrayIndex < 0)
             {
-                IncreaseCapacity();
+                throw new ArgumentOutOfRangeException("Индекс вне границ списка.");
             }
 
-            if (length > Count)
+            for (int i = arrayIndex, j = 0; j < Count; i++, j++)
             {
-                Count = length;
-            }
-
-            for (int i = arrayIndex, j = 0; i < length; i++, j++)
-            {
-                elements[i] = array[j];
+                foreach (T element in elements[j])
+                {
+                    array[i] = element;
+                    i++;
+                }
             }
         }
 
@@ -101,35 +80,39 @@ namespace HashTable.HashTable
                     throw new SystemException("Хэш-таблица была изменена во время итерирования.");
                 }
 
-                yield return elements[i];
+                foreach (T element in elements[i])
+                {
+                    yield return element;
+                }
             }
         }
 
         public bool Remove(T item)
         {
-            T[] temp = new T[Count];
-            Array.Copy(elements, temp, Count);
-            elements = new T[Capacity];
             bool isCoincidence = false;
 
             for (int i = 0, j = 0; j < Count; i++, j++)
             {
-                if (temp[i].Equals(item))
+                foreach (T element in elements[i])
                 {
-                    j++;
-                    isCoincidence = true;
-                }
+                    if (elements[i].Equals(item))
+                    {
+                        j++;
+                        isCoincidence = true;
+                    }
 
-                elements[i] = temp[j];
+                    elements[i] = elements[j];
 
-                if (j == Count - 1 && isCoincidence)
-                {
-                    Count--;
-                    return true;
+                    if (j == Count - 1 && isCoincidence)
+                    {
+                        Count--;
+                        changes++;
+                        return true;
+                    }
                 }
             }
 
-            throw new ArgumentNullException("Элемент не найден.");
+            return false;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

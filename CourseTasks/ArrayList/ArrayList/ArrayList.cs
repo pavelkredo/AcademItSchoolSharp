@@ -61,7 +61,21 @@ namespace ArrayList.ArrayList
 
         public int Capacity
         {
-            get { return elements.Length; }
+            get
+            {
+                return elements.Length;
+            }
+            set
+            {
+                if (value < Count)
+                {
+                    throw new ArgumentOutOfRangeException("Новый размер списка должен быть больше количества элементов.");
+                }
+
+                T[] temp = elements;
+                elements = new T[value];
+                Array.Copy(temp, elements, Count);
+            }
         }
 
         public bool IsReadOnly
@@ -90,17 +104,30 @@ namespace ArrayList.ArrayList
 
         public void Clear()
         {
-            Count = 0;
-            changes++;
+            if (Count != 0)
+            {
+                Count = 0;
+                changes++;
+            }
         }
 
         public bool Contains(T item)
         {
-            return IndexOf(item) == -1;
+            return IndexOf(item) != -1;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            if (array == null)
+            {
+                throw new ArgumentNullException("Массив не создан.");
+            }
+
+            if (arrayIndex < 0 || arrayIndex + Count > Capacity)
+            {
+                throw new ArgumentOutOfRangeException("Индекс вне границ списка.");
+            }
+
             for (int i = arrayIndex, j = 0; j < Count; i++, j++)
             {
                 array[i] = elements[j];
@@ -109,13 +136,13 @@ namespace ArrayList.ArrayList
 
         public IEnumerator<T> GetEnumerator()
         {
-            int temp = changes;
+            int initialChanges = changes;
 
             for (int i = 0; i < Count; i++)
             {
-                if (temp != changes)
+                if (initialChanges != changes)
                 {
-                    throw new SystemException("Список был изменен во время итерирования.");
+                    throw new InvalidOperationException("Список был изменен во время итерирования.");
                 }
 
                 yield return elements[i];
@@ -146,24 +173,8 @@ namespace ArrayList.ArrayList
                 IncreaseCapacity();
             }
 
-            T temp1 = default(T);
-            bool isInsert = false;
-
-            for (int i = 0; i <= Count; i++)
-            {
-                if (i == index)
-                {
-                    temp1 = elements[i];
-                    elements[i] = item;
-                    isInsert = true;
-                }
-                else if (isInsert)
-                {
-                    T temp2 = elements[i];
-                    elements[i] = temp1;
-                    temp1 = temp2;
-                }
-            }
+            Array.Copy(elements, index, elements, index + 1, elements.Length - index - 1);
+            elements[index] = item;
 
             Count++;
             changes++;
@@ -171,20 +182,11 @@ namespace ArrayList.ArrayList
 
         public bool Remove(T item)
         {
-            bool isCoincidence = false;
-
             for (int i = 0, j = 0; j < Count; i++, j++)
             {
                 if (elements[i].Equals(item))
                 {
-                    j++;
-                    isCoincidence = true;
-                }
-
-                elements[i] = elements[j];
-
-                if (j == Count - 1 && isCoincidence)
-                {
+                    Array.Copy(elements, i + 1, elements, i, elements.Length - i - 1);
                     Count--;
                     changes++;
                     return true;
@@ -201,16 +203,7 @@ namespace ArrayList.ArrayList
                 throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
 
-            for (int i = 0, j = 0; j < Count; i++, j++)
-            {
-                if (i == index && index != Count - 1)
-                {
-                    j++;
-                }
-
-                elements[i] = elements[j];
-            }
-
+            Array.Copy(elements, index + 1, elements, index, elements.Length - index - 1);
             Count--;
             changes++;
         }
@@ -222,9 +215,12 @@ namespace ArrayList.ArrayList
 
         public void TrimExcess()
         {
-            T[] temp = elements;
-            elements = new T[Count];
-            Array.Copy(temp, elements, Count);
+            if (Count != Capacity)
+            {
+                T[] temp = elements;
+                elements = new T[Count];
+                Array.Copy(temp, elements, Count);
+            }
         }
     }
 }
