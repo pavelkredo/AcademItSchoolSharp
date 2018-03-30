@@ -81,6 +81,14 @@ namespace ArrayList.Main
                 Console.Write(element + " ");
             }
             Console.WriteLine();
+
+            list.Insert(3, 0);
+
+            foreach (int element in list)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
         }
     }
 }

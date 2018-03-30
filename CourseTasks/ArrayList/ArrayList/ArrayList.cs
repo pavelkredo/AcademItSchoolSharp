@@ -67,7 +67,7 @@ namespace ArrayList.ArrayList
             }
             set
             {
-                if (value < Count)
+                if (value <= Count)
                 {
                     throw new ArgumentOutOfRangeException("Новый размер списка должен быть больше количества элементов.");
                 }
@@ -123,7 +123,7 @@ namespace ArrayList.ArrayList
                 throw new ArgumentNullException("Массив не создан.");
             }
 
-            if (arrayIndex < 0 || arrayIndex + Count > Capacity)
+            if (arrayIndex < 0 || arrayIndex + Count > array.Length)
             {
                 throw new ArgumentOutOfRangeException("Индекс вне границ списка.");
             }
@@ -166,7 +166,7 @@ namespace ArrayList.ArrayList
         {
             if (index < 0 || index > Count)
             {
-                throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
+                throw new ArgumentOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
             else if (Count == Capacity)
             {
@@ -182,9 +182,9 @@ namespace ArrayList.ArrayList
 
         public bool Remove(T item)
         {
-            for (int i = 0, j = 0; j < Count; i++, j++)
+            for (int i = 0; i < Count; i++)
             {
-                if (elements[i].Equals(item))
+                if (Equals(elements[i], item))
                 {
                     Array.Copy(elements, i + 1, elements, i, elements.Length - i - 1);
                     Count--;
