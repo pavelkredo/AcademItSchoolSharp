@@ -15,7 +15,7 @@ namespace HashTable.Main
             }
             Console.WriteLine();
 
-            if(hashTable.Contains(4))
+            if(hashTable.Contains(7))
             {
                 Console.WriteLine("Хэш-таблица содержит элемент.");
             }

@@ -23,14 +23,17 @@ namespace HashTable.HashTable
 
         public void Add(T item)
         {
-            if (Count == elements.Length)
+            int index = Math.Abs(item.GetHashCode() % elements.Length);
+
+            if (elements[index] == null)
             {
-                List<T>[] temp = elements;
-                elements = new List<T>[Count * 2];
-                Array.Copy(temp, elements, Count);
+                elements[index] = new List<T>() { item };
+            }
+            else
+            {
+                elements[index].Add(item);
             }
 
-            elements[Count] = new List<T>() { item };
             Count++;
             changes++;
         }
@@ -39,6 +42,7 @@ namespace HashTable.HashTable
         {
             if (Count != 0)
             {
+                elements = new List<T>[elements.Length];
                 Count = 0;
                 changes++;
             }
@@ -46,37 +50,40 @@ namespace HashTable.HashTable
 
         public bool Contains(T item)
         {
-            for (int i = 0; i < Count; i++)
+            int index = Math.Abs(item.GetHashCode() % elements.Length);
+
+            if (elements[index] != null)
             {
-                foreach (T element in elements[i])
-                {
-                    if (Equals(element, item))
-                    {
-                        return true;
-                    }
-                }
+                return elements[index].Contains(item);
             }
+
             return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (array == null || arrayIndex + Count > array.Length)
+            if (array == null)
             {
                 throw new ArgumentNullException("Массив не задан.");
             }
-
-            if (arrayIndex < 0)
+            else if (arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException("Индекс вне границ списка.");
+                throw new ArgumentOutOfRangeException("Индекс вне границ массива.");
+            }
+            else if (arrayIndex + Count > array.Length)
+            {
+                throw new ArgumentException("Недостаточный размер передаваемого массива.");
             }
 
             for (int i = arrayIndex, j = 0; j < Count; i++, j++)
             {
-                foreach (T element in elements[j])
+                if (elements[j] != null)
                 {
-                    array[i] = element;
-                    i++;
+                    foreach (T element in elements[j])
+                    {
+                        array[i] = element;
+                        i++;
+                    }
                 }
             }
         }
@@ -85,35 +92,28 @@ namespace HashTable.HashTable
         {
             int initialChanges = changes;
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
                 if (initialChanges != changes)
                 {
                     throw new InvalidOperationException("Хэш-таблица была изменена во время итерирования.");
                 }
 
-                foreach (T element in elements[i])
+                if (elements[i] != null)
                 {
-                    yield return element;
+                    foreach (T element in elements[i])
+                    {
+                        yield return element;
+                    }
                 }
             }
         }
 
         public bool Remove(T item)
         {
-            for (int i = 0; i < Count; i++)
-            {
-                int index = elements[i].IndexOf(item);
+            int index = Math.Abs(item.GetHashCode() % elements.Length);
 
-                if (index != -1)
-                {
-                    elements[i].Remove(item);
-                    changes++;
-                    return true;
-                }
-            }
-
-            return false;
+            return elements[index].Remove(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
