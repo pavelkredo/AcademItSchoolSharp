@@ -67,14 +67,16 @@ namespace ArrayList.ArrayList
             }
             set
             {
-                if (value <= Count)
+                if (value < Count)
                 {
                     throw new ArgumentOutOfRangeException("Новый размер списка должен быть больше количества элементов.");
                 }
-
-                T[] temp = elements;
-                elements = new T[value];
-                Array.Copy(temp, elements, Count);
+                else if (value != Count)
+                {
+                    T[] temp = elements;
+                    elements = new T[value];
+                    Array.Copy(temp, elements, Count);
+                }
             }
         }
 
@@ -173,7 +175,7 @@ namespace ArrayList.ArrayList
                 IncreaseCapacity();
             }
 
-            Array.Copy(elements, index, elements, index + 1, elements.Length - index - 1);
+            Array.Copy(elements, index, elements, index + 1, Count - index);
             elements[index] = item;
 
             Count++;
@@ -186,7 +188,7 @@ namespace ArrayList.ArrayList
             {
                 if (Equals(elements[i], item))
                 {
-                    Array.Copy(elements, i + 1, elements, i, elements.Length - i - 1);
+                    Array.Copy(elements, i + 1, elements, i, Count - i);
                     Count--;
                     changes++;
                     return true;
@@ -203,7 +205,7 @@ namespace ArrayList.ArrayList
                 throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
 
-            Array.Copy(elements, index + 1, elements, index, elements.Length - index - 1);
+            Array.Copy(elements, index + 1, elements, index, Count - index);
             Count--;
             changes++;
         }

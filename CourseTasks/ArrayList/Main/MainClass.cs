@@ -59,16 +59,14 @@ namespace ArrayList.Main
             }
             Console.WriteLine();
 
-            if(list.Contains(4))
+            if (list.Contains(4))
             {
                 Console.WriteLine("Список содержит элемент.");
             }
 
-            System.Collections.Generic.List<int> list3 = new System.Collections.Generic.List<int>() { 3, 6, 8, 15, 20 };
-
             list.Insert(2, 20);
 
-            foreach(int element in list)
+            foreach (int element in list)
             {
                 Console.Write(element + " ");
             }
@@ -85,6 +83,16 @@ namespace ArrayList.Main
             list.Insert(3, 0);
 
             foreach (int element in list)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+
+            List<int> list3 = new List<int>(3) { 3, 5, 7, 10, 12, 15, 20 };
+
+            list3.Insert(5, 100);
+
+            foreach (int element in list3)
             {
                 Console.Write(element + " ");
             }
