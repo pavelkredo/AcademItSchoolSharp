@@ -188,7 +188,7 @@ namespace ArrayList.ArrayList
             {
                 if (Equals(elements[i], item))
                 {
-                    Array.Copy(elements, i + 1, elements, i, Count - i);
+                    Array.Copy(elements, i + 1, elements, i, Count - i - 1);
                     Count--;
                     changes++;
                     return true;
@@ -205,7 +205,7 @@ namespace ArrayList.ArrayList
                 throw new IndexOutOfRangeException("Указываемый индекс вне диапозона списка.");
             }
 
-            Array.Copy(elements, index + 1, elements, index, Count - index);
+            Array.Copy(elements, index + 1, elements, index, Count - index - 1);
             Count--;
             changes++;
         }

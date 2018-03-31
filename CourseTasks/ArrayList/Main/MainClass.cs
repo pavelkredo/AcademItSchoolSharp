@@ -97,6 +97,14 @@ namespace ArrayList.Main
                 Console.Write(element + " ");
             }
             Console.WriteLine();
+
+            list3.Remove(100);
+
+            foreach (int element in list3)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
         }
     }
 }
