@@ -21,9 +21,19 @@ namespace HashTable.HashTable
             get { return false; }
         }
 
+        public int GetIndex(T item)
+        {
+            if (item == null)
+            {
+                return 0;
+            }
+
+            return Math.Abs(item.GetHashCode() % elements.Length);
+        }
+
         public void Add(T item)
         {
-            int index = Math.Abs(item.GetHashCode() % elements.Length);
+            int index = GetIndex(item);
 
             if (elements[index] == null)
             {
@@ -50,7 +60,7 @@ namespace HashTable.HashTable
 
         public bool Contains(T item)
         {
-            int index = Math.Abs(item.GetHashCode() % elements.Length);
+            int index = GetIndex(item);
 
             if (elements[index] != null)
             {
@@ -75,16 +85,10 @@ namespace HashTable.HashTable
                 throw new ArgumentException("Недостаточный размер передаваемого массива.");
             }
 
-            for (int i = arrayIndex, j = 0; j < Count; i++, j++)
+            foreach (T element in this)
             {
-                if (elements[j] != null)
-                {
-                    foreach (T element in elements[j])
-                    {
-                        array[i] = element;
-                        i++;
-                    }
-                }
+                array[arrayIndex] = element;
+                arrayIndex++;
             }
         }
 
@@ -94,15 +98,15 @@ namespace HashTable.HashTable
 
             for (int i = 0; i < elements.Length; i++)
             {
-                if (initialChanges != changes)
-                {
-                    throw new InvalidOperationException("Хэш-таблица была изменена во время итерирования.");
-                }
-
                 if (elements[i] != null)
                 {
                     foreach (T element in elements[i])
                     {
+                        if (initialChanges != changes)
+                        {
+                            throw new InvalidOperationException("Хэш-таблица была изменена во время итерирования.");
+                        }
+
                         yield return element;
                     }
                 }
@@ -111,9 +115,7 @@ namespace HashTable.HashTable
 
         public bool Remove(T item)
         {
-            int index = Math.Abs(item.GetHashCode() % elements.Length);
-
-            return elements[index].Remove(item);
+            return elements[GetIndex(item)].Remove(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

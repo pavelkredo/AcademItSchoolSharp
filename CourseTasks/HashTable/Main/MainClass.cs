@@ -9,13 +9,13 @@ namespace HashTable.Main
         {
             HashTable<int> hashTable = new HashTable<int>(20) { 4, 7, 8, 12 };
 
-            foreach(int element in hashTable)
+            foreach (int element in hashTable)
             {
                 Console.Write(element + " ");
             }
             Console.WriteLine();
 
-            if(hashTable.Contains(7))
+            if (hashTable.Contains(7))
             {
                 Console.WriteLine("Хэш-таблица содержит элемент.");
             }
@@ -27,6 +27,20 @@ namespace HashTable.Main
                 Console.Write(element + " ");
             }
             Console.WriteLine();
+
+            int[] array = new int[10];
+            hashTable.CopyTo(array, 2);
+
+            foreach (int element in array)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+
+            HashTable<string> hashTable2 = new HashTable<string>(20) { "aa", "bb", "cc", "dd" };
+            hashTable2.Add(null);
+
+            Console.WriteLine(hashTable2.Contains(null));
         }
     }
 }
