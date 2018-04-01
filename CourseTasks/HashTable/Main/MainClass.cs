@@ -41,6 +41,13 @@ namespace HashTable.Main
             hashTable2.Add(null);
 
             Console.WriteLine(hashTable2.Contains(null));
+
+            hashTable2.Remove("cc");
+
+            foreach (string element in hashTable2)
+            {
+                Console.Write(element + " ");
+            }
         }
     }
 }

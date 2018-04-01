@@ -85,10 +85,12 @@ namespace HashTable.HashTable
                 throw new ArgumentException("Недостаточный размер передаваемого массива.");
             }
 
+            int i = arrayIndex;
+
             foreach (T element in this)
             {
-                array[arrayIndex] = element;
-                arrayIndex++;
+                array[i] = element;
+                i++;
             }
         }
 
@@ -115,7 +117,14 @@ namespace HashTable.HashTable
 
         public bool Remove(T item)
         {
-            return elements[GetIndex(item)].Remove(item);
+            int index = GetIndex(item);
+
+            if (elements[index] != null)
+            {
+                return elements[index].Remove(item);
+            }
+
+            return false;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
