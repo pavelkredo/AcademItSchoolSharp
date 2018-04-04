@@ -32,71 +32,6 @@ namespace Temperature
             double.TryParse(textBox1.Text, out originalTemperature);
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            originalScale = comboBox1.Text;
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            finalScale = comboBox2.Text;
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!isTextChanged)
-            {
-                label3.Visible = true;
-                return;
-            }
-
-            if (originalScale == null || finalScale == null)
-            {
-                label2.Visible = true;
-                return;
-            }
-
-            CalculateTemperature();
-            textBox2.Text = finalTemperature.ToString();
-        }
-
-        private void CalculateTemperature()
-        {
-            if (originalScale == "цельсия" && finalScale == "фаренгейта")
-            {
-                finalTemperature = originalTemperature * 1.8 + 32;
-            }
-            else if (originalScale == "цельсия" && finalScale == "кельвина")
-            {
-                finalTemperature = originalTemperature + 273.15;
-            }
-            else if (originalScale == "фаренгейта" && finalScale == "цельсия")
-            {
-                finalTemperature = (originalTemperature - 32) / 1.8;
-            }
-            else if (originalScale == "фаренгейта" && finalScale == "кельвина")
-            {
-                finalTemperature = (originalTemperature - 32) / 1.8 + 273.15;
-            }
-            else if (originalScale == "кельвина" && finalScale == "цельсия")
-            {
-                finalTemperature = originalTemperature - 273.15;
-            }
-            else if (originalScale == "кельвина" && finalScale == "фаренгейта")
-            {
-                finalTemperature = 1.8 * (originalTemperature - 273.15) + 32;
-            }
-            else
-            {
-                finalTemperature = originalTemperature;
-            }
-        }
-
         private void textBox1_Enter(object sender, EventArgs e)
         {
             if (originalTemperature != 0)
@@ -135,10 +70,75 @@ namespace Temperature
             e.Handled = isHandled;
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            originalScale = comboBox1.Text;
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            finalScale = comboBox2.Text;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!isTextChanged)
+            {
+                label3.Visible = true;
+                return;
+            }
+
+            if (originalScale == null || finalScale == null)
+            {
+                label2.Visible = true;
+                return;
+            }
+
+            CalculateTemperature();
+            textBox2.Text = finalTemperature.ToString();
+        }
+
         private void button1_Leave(object sender, EventArgs e)
         {
             label2.Visible = false;
             label3.Visible = false;
+        }
+
+        private void CalculateTemperature()
+        {
+            if (originalScale == "цельсия" && finalScale == "фаренгейта")
+            {
+                finalTemperature = originalTemperature * 1.8 + 32;
+            }
+            else if (originalScale == "цельсия" && finalScale == "кельвина")
+            {
+                finalTemperature = originalTemperature + 273.15;
+            }
+            else if (originalScale == "фаренгейта" && finalScale == "цельсия")
+            {
+                finalTemperature = (originalTemperature - 32) / 1.8;
+            }
+            else if (originalScale == "фаренгейта" && finalScale == "кельвина")
+            {
+                finalTemperature = (originalTemperature - 32) / 1.8 + 273.15;
+            }
+            else if (originalScale == "кельвина" && finalScale == "цельсия")
+            {
+                finalTemperature = originalTemperature - 273.15;
+            }
+            else if (originalScale == "кельвина" && finalScale == "фаренгейта")
+            {
+                finalTemperature = 1.8 * (originalTemperature - 273.15) + 32;
+            }
+            else
+            {
+                finalTemperature = originalTemperature;
+            }
         }
     }
 }
