@@ -40,6 +40,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(128, 294);
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(220, 20);
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "результат";
@@ -52,10 +53,6 @@
             this.comboBox2.AccessibleName = "";
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.ItemHeight = 13;
-            this.comboBox2.Items.AddRange(new object[] {
-            "цельсия",
-            "фаренгейта",
-            "кельвина"});
             this.comboBox2.Location = new System.Drawing.Point(128, 177);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(220, 21);
@@ -77,11 +74,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.DarkRed;
-            this.label1.Location = new System.Drawing.Point(198, 111);
+            this.label1.Location = new System.Drawing.Point(119, 111);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(238, 26);
             this.label1.TabIndex = 6;
-            this.label1.Text = "введите число";
+            this.label1.Text = "вводить нужно число\r\n(для вещественных чисел используйте точку)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Visible = false;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox1
@@ -94,6 +93,9 @@
             this.textBox1.Text = "введите температуру";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // comboBox1
             // 
@@ -107,7 +109,6 @@
             this.comboBox1.TabIndex = 3;
             this.comboBox1.Text = "выберите переводимую шкалу";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             // 
             // TemperatureTranslation
             // 
@@ -124,7 +125,7 @@
             this.Controls.Add(this.textBox2);
             this.Name = "TemperatureTranslation";
             this.Text = "Перевод температуры";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.TemperatureTranslation_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
