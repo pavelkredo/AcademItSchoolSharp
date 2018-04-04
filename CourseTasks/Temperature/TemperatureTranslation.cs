@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Temperature
 {
-    public partial class Form1 : Form
+    public partial class TemperatureTranslation : Form
     {
-        double originalTemperature;
-        double finalTemperature;
-        int originalScale;
-        int finalScale;
+        private double originalTemperature;
+        private double finalTemperature;
+        private int originalScale;
+        private int finalScale;
 
-        public Form1()
+        public TemperatureTranslation()
         {
             InitializeComponent();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            if(textBox1.Text.Contains("введите температуру"))
+            {
+                textBox1.Text = null;
+            }
+
             label1.Visible = false;
             string str = textBox1.Text;
 
@@ -28,7 +34,7 @@ namespace Temperature
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            originalScale = comboBox1.SelectedIndex;
+
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -38,10 +44,16 @@ namespace Temperature
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            CalculateTemperature();
+            textBox2.Text = finalTemperature.ToString();
+        }
+
+        private void CalculateTemperature()
         {
             if (originalScale == 0 && finalScale == 1)
             {
@@ -71,18 +83,22 @@ namespace Temperature
             {
                 finalTemperature = originalTemperature;
             }
-
-            textBox2.Text = finalTemperature.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+            string[] installs = new string[] { "цельсия", "фаренгейта", "кельвина" };
+            comboBox1.Items.AddRange(installs);
         }
     }
 }

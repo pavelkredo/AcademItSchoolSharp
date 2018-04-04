@@ -1,6 +1,6 @@
 ﻿namespace Temperature
 {
-    partial class Form1
+    partial class TemperatureTranslation
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(220, 63);
             this.button1.TabIndex = 5;
-            this.button1.Text = "перевести";
+            this.button1.Text = "ПЕРЕВЕСТИ";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -100,10 +100,6 @@
             this.comboBox1.AccessibleDescription = "";
             this.comboBox1.AccessibleName = "";
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "цельсия",
-            "фаренгейта",
-            "кельвина"});
             this.comboBox1.Location = new System.Drawing.Point(128, 150);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -111,11 +107,13 @@
             this.comboBox1.TabIndex = 3;
             this.comboBox1.Text = "выберите переводимую шкалу";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             // 
-            // Form1
+            // TemperatureTranslation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(476, 394);
             this.Controls.Add(this.comboBox1);
@@ -124,7 +122,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox2);
-            this.Name = "Form1";
+            this.Name = "TemperatureTranslation";
             this.Text = "Перевод температуры";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
