@@ -6,6 +6,7 @@ namespace Temperature
 {
     public partial class TemperatureTranslation : Form
     {
+        private bool isTextChanged = false;
         private double originalTemperature;
         private double finalTemperature;
         private string originalScale;
@@ -25,6 +26,7 @@ namespace Temperature
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            isTextChanged = true;
             label1.Visible = false;
 
             double.TryParse(textBox1.Text, out originalTemperature);
@@ -47,6 +49,18 @@ namespace Temperature
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!isTextChanged)
+            {
+                label3.Visible = true;
+                return;
+            }
+
+            if (originalScale == null || finalScale == null)
+            {
+                label2.Visible = true;
+                return;
+            }
+
             CalculateTemperature();
             textBox2.Text = finalTemperature.ToString();
         }
@@ -85,7 +99,14 @@ namespace Temperature
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            textBox1.Text = null;
+            if (originalTemperature != 0)
+            {
+                textBox1.Text = originalTemperature.ToString();
+            }
+            else
+            {
+                textBox1.Text = null;
+            }
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
@@ -114,9 +135,10 @@ namespace Temperature
             e.Handled = isHandled;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void button1_Leave(object sender, EventArgs e)
         {
-
+            label2.Visible = false;
+            label3.Visible = false;
         }
     }
 }
