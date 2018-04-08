@@ -42,7 +42,7 @@
             // resultBox
             // 
             this.resultBox.BackColor = System.Drawing.SystemColors.Window;
-            this.resultBox.Location = new System.Drawing.Point(128, 306);
+            this.resultBox.Location = new System.Drawing.Point(46, 275);
             this.resultBox.Name = "resultBox";
             this.resultBox.ReadOnly = true;
             this.resultBox.Size = new System.Drawing.Size(220, 20);
@@ -57,7 +57,7 @@
             this.derivableScale.AccessibleName = "";
             this.derivableScale.FormattingEnabled = true;
             this.derivableScale.ItemHeight = 13;
-            this.derivableScale.Location = new System.Drawing.Point(128, 177);
+            this.derivableScale.Location = new System.Drawing.Point(46, 146);
             this.derivableScale.Name = "derivableScale";
             this.derivableScale.Size = new System.Drawing.Size(220, 21);
             this.derivableScale.TabIndex = 4;
@@ -67,7 +67,7 @@
             // 
             // translationButton
             // 
-            this.translationButton.Location = new System.Drawing.Point(128, 225);
+            this.translationButton.Location = new System.Drawing.Point(46, 194);
             this.translationButton.Name = "translationButton";
             this.translationButton.Size = new System.Drawing.Size(220, 63);
             this.translationButton.TabIndex = 5;
@@ -82,7 +82,7 @@
             this.notDigitError.AutoSize = true;
             this.notDigitError.BackColor = System.Drawing.Color.Transparent;
             this.notDigitError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notDigitError.Location = new System.Drawing.Point(119, 110);
+            this.notDigitError.Location = new System.Drawing.Point(37, 79);
             this.notDigitError.Name = "notDigitError";
             this.notDigitError.Size = new System.Drawing.Size(238, 26);
             this.notDigitError.TabIndex = 6;
@@ -94,7 +94,7 @@
             // 
             this.boxForTemperature.AccessibleDescription = "";
             this.boxForTemperature.BackColor = System.Drawing.SystemColors.Window;
-            this.boxForTemperature.Location = new System.Drawing.Point(128, 88);
+            this.boxForTemperature.Location = new System.Drawing.Point(46, 57);
             this.boxForTemperature.Name = "boxForTemperature";
             this.boxForTemperature.Size = new System.Drawing.Size(220, 20);
             this.boxForTemperature.TabIndex = 1;
@@ -111,7 +111,7 @@
             this.introducedScale.AccessibleDescription = "";
             this.introducedScale.AccessibleName = "";
             this.introducedScale.FormattingEnabled = true;
-            this.introducedScale.Location = new System.Drawing.Point(128, 150);
+            this.introducedScale.Location = new System.Drawing.Point(46, 119);
             this.introducedScale.Name = "introducedScale";
             this.introducedScale.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.introducedScale.Size = new System.Drawing.Size(220, 21);
@@ -125,7 +125,7 @@
             this.notSelectedError.AutoSize = true;
             this.notSelectedError.BackColor = System.Drawing.Color.Transparent;
             this.notSelectedError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notSelectedError.Location = new System.Drawing.Point(142, 289);
+            this.notSelectedError.Location = new System.Drawing.Point(60, 258);
             this.notSelectedError.Name = "notSelectedError";
             this.notSelectedError.Size = new System.Drawing.Size(193, 13);
             this.notSelectedError.TabIndex = 7;
@@ -137,7 +137,7 @@
             this.notEnteredError.AutoSize = true;
             this.notEnteredError.BackColor = System.Drawing.Color.Transparent;
             this.notEnteredError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notEnteredError.Location = new System.Drawing.Point(170, 110);
+            this.notEnteredError.Location = new System.Drawing.Point(88, 79);
             this.notEnteredError.Name = "notEnteredError";
             this.notEnteredError.Size = new System.Drawing.Size(136, 13);
             this.notEnteredError.TabIndex = 8;
@@ -151,7 +151,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(476, 394);
+            this.ClientSize = new System.Drawing.Size(313, 329);
             this.Controls.Add(this.notEnteredError);
             this.Controls.Add(this.notSelectedError);
             this.Controls.Add(this.introducedScale);
@@ -161,6 +161,8 @@
             this.Controls.Add(this.derivableScale);
             this.Controls.Add(this.resultBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TemperatureTranslation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Перевод температуры";
