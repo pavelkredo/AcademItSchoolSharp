@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tree.Tree
 {
-    class TreeNode<T>
+    public class TreeNode<T>
     {
         private TreeNode<T> left;
         private TreeNode<T> right;
@@ -35,6 +35,11 @@ namespace Tree.Tree
         {
             get { return right; }
             set { right = value; }
+        }
+
+        public TreeNode<T>[] GetChildren()
+        {
+            return new TreeNode<T>[] { left, right };
         }
     }
 }

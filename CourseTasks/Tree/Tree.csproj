@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\Main.cs" />
+    <Compile Include="Main\MainClass.cs" />
     <Compile Include="Tree\BinaryTree.cs" />
     <Compile Include="Tree\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
