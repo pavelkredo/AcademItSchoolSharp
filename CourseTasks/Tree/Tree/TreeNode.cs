@@ -1,45 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tree.Tree
+﻿namespace Tree.Tree
 {
     public class TreeNode<T>
     {
-        private TreeNode<T> left;
-        private TreeNode<T> right;
-        private T data;
-
         public TreeNode(T data)
         {
-            this.data = data;
-            left = null;
-            right = null;
+            Data = data;
+            Left = null;
+            Right = null;
         }
 
-        public T Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
+        public T Data { get; set; }
 
-        public TreeNode<T> Left
-        {
-            get { return left; }
-            set { left = value; }
-        }
+        public TreeNode<T> Left { get; set; }
 
-        public TreeNode<T> Right
-        {
-            get { return right; }
-            set { right = value; }
-        }
+        public TreeNode<T> Right { get; set; }
 
         public TreeNode<T>[] GetChildren()
         {
-            return new TreeNode<T>[] { left, right };
+            return new TreeNode<T>[] { Left, Right };
         }
     }
 }
