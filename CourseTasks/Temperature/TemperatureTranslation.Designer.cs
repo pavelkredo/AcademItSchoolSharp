@@ -37,37 +37,40 @@
             this.introducedScale = new System.Windows.Forms.ComboBox();
             this.notSelectedError = new System.Windows.Forms.Label();
             this.notEnteredError = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // resultBox
             // 
             this.resultBox.BackColor = System.Drawing.SystemColors.Window;
-            this.resultBox.Location = new System.Drawing.Point(46, 275);
+            this.resultBox.Location = new System.Drawing.Point(48, 302);
             this.resultBox.Name = "resultBox";
             this.resultBox.ReadOnly = true;
             this.resultBox.Size = new System.Drawing.Size(220, 20);
             this.resultBox.TabIndex = 2;
             this.resultBox.TabStop = false;
-            this.resultBox.Text = "результат";
             this.resultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // derivableScale
             // 
             this.derivableScale.AccessibleDescription = "";
             this.derivableScale.AccessibleName = "";
+            this.derivableScale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.derivableScale.FormattingEnabled = true;
             this.derivableScale.ItemHeight = 13;
-            this.derivableScale.Location = new System.Drawing.Point(46, 146);
+            this.derivableScale.Location = new System.Drawing.Point(48, 162);
             this.derivableScale.Name = "derivableScale";
             this.derivableScale.Size = new System.Drawing.Size(220, 21);
             this.derivableScale.TabIndex = 4;
             this.derivableScale.TabStop = false;
-            this.derivableScale.Text = "выберите в какую шкалу переводить";
             this.derivableScale.SelectedIndexChanged += new System.EventHandler(this.derivableScale_SelectedIndexChanged);
             // 
             // translationButton
             // 
-            this.translationButton.Location = new System.Drawing.Point(46, 194);
+            this.translationButton.Location = new System.Drawing.Point(48, 206);
             this.translationButton.Name = "translationButton";
             this.translationButton.Size = new System.Drawing.Size(220, 63);
             this.translationButton.TabIndex = 5;
@@ -82,11 +85,11 @@
             this.notDigitError.AutoSize = true;
             this.notDigitError.BackColor = System.Drawing.Color.Transparent;
             this.notDigitError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notDigitError.Location = new System.Drawing.Point(37, 79);
+            this.notDigitError.Location = new System.Drawing.Point(39, 75);
             this.notDigitError.Name = "notDigitError";
             this.notDigitError.Size = new System.Drawing.Size(238, 26);
             this.notDigitError.TabIndex = 6;
-            this.notDigitError.Text = "вводить нужно число\r\n(для вещественных чисел используйте точку)";
+            this.notDigitError.Text = "Вводить нужно число\r\n(для вещественных чисел используйте точку)";
             this.notDigitError.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.notDigitError.Visible = false;
             // 
@@ -94,30 +97,28 @@
             // 
             this.boxForTemperature.AccessibleDescription = "";
             this.boxForTemperature.BackColor = System.Drawing.SystemColors.Window;
-            this.boxForTemperature.Location = new System.Drawing.Point(46, 57);
+            this.boxForTemperature.Location = new System.Drawing.Point(48, 53);
             this.boxForTemperature.Name = "boxForTemperature";
             this.boxForTemperature.Size = new System.Drawing.Size(220, 20);
             this.boxForTemperature.TabIndex = 1;
             this.boxForTemperature.TabStop = false;
-            this.boxForTemperature.Text = "введите температуру";
             this.boxForTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.boxForTemperature.TextChanged += new System.EventHandler(this.boxForTemperature_TextChanged);
-            this.boxForTemperature.Enter += new System.EventHandler(this.boxForTemperature_Enter);
             this.boxForTemperature.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxForTemperature_KeyPress);
-            this.boxForTemperature.Leave += new System.EventHandler(this.boxForTemperature_Leave);
             // 
             // introducedScale
             // 
             this.introducedScale.AccessibleDescription = "";
             this.introducedScale.AccessibleName = "";
+            this.introducedScale.BackColor = System.Drawing.SystemColors.Window;
+            this.introducedScale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.introducedScale.FormattingEnabled = true;
-            this.introducedScale.Location = new System.Drawing.Point(46, 119);
+            this.introducedScale.Location = new System.Drawing.Point(48, 121);
             this.introducedScale.Name = "introducedScale";
             this.introducedScale.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.introducedScale.Size = new System.Drawing.Size(220, 21);
             this.introducedScale.TabIndex = 3;
             this.introducedScale.TabStop = false;
-            this.introducedScale.Text = "выберите переводимую шкалу";
             this.introducedScale.SelectedIndexChanged += new System.EventHandler(this.introducedScale_SelectedIndexChanged);
             // 
             // notSelectedError
@@ -125,7 +126,7 @@
             this.notSelectedError.AutoSize = true;
             this.notSelectedError.BackColor = System.Drawing.Color.Transparent;
             this.notSelectedError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notSelectedError.Location = new System.Drawing.Point(60, 258);
+            this.notSelectedError.Location = new System.Drawing.Point(62, 270);
             this.notSelectedError.Name = "notSelectedError";
             this.notSelectedError.Size = new System.Drawing.Size(193, 13);
             this.notSelectedError.TabIndex = 7;
@@ -137,13 +138,53 @@
             this.notEnteredError.AutoSize = true;
             this.notEnteredError.BackColor = System.Drawing.Color.Transparent;
             this.notEnteredError.ForeColor = System.Drawing.Color.DarkRed;
-            this.notEnteredError.Location = new System.Drawing.Point(88, 79);
+            this.notEnteredError.Location = new System.Drawing.Point(90, 75);
             this.notEnteredError.Name = "notEnteredError";
-            this.notEnteredError.Size = new System.Drawing.Size(136, 13);
+            this.notEnteredError.Size = new System.Drawing.Size(137, 13);
             this.notEnteredError.TabIndex = 8;
-            this.notEnteredError.Text = "вы не ввели температуру";
+            this.notEnteredError.Text = "Вы не ввели температуру";
             this.notEnteredError.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.notEnteredError.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(95, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Вводимая температура";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label2.Location = new System.Drawing.Point(76, 106);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(164, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Шкала, из которой переводить";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label3.Location = new System.Drawing.Point(79, 147);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(159, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Шкала, в которую переводить";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label4.Location = new System.Drawing.Point(129, 287);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Результат";
             // 
             // TemperatureTranslation
             // 
@@ -151,7 +192,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(313, 329);
+            this.ClientSize = new System.Drawing.Size(317, 342);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.notEnteredError);
             this.Controls.Add(this.notSelectedError);
             this.Controls.Add(this.introducedScale);
@@ -178,9 +223,13 @@
         private System.Windows.Forms.Button translationButton;
         private System.Windows.Forms.Label notDigitError;
         private System.Windows.Forms.TextBox boxForTemperature;
-        private System.Windows.Forms.ComboBox introducedScale;
         private System.Windows.Forms.Label notSelectedError;
         private System.Windows.Forms.Label notEnteredError;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox introducedScale;
     }
 }
 

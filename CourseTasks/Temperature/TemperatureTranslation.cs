@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Temperature.Scales;
 
 namespace Temperature
 {
@@ -10,6 +12,9 @@ namespace Temperature
         private double finalTemperature;
         private string originalScale;
         private string finalScale;
+        private IScale originalScaleObject;
+        private IScale finalScaleObject;
+        List<IScale> scales = new List<IScale> { new Celsius(), new Kelvin(), new Fahrenheit() };
 
         public TemperatureTranslation()
         {
@@ -18,9 +23,11 @@ namespace Temperature
 
         private void TemperatureTranslation_Load(object sender, EventArgs e)
         {
-            string[] installs = new string[] { "цельсия", "фаренгейта", "кельвина" };
-            introducedScale.Items.AddRange(installs);
-            derivableScale.Items.AddRange(installs);
+            foreach (IScale item in scales)
+            {
+                introducedScale.Items.Add(item.GetName());
+                derivableScale.Items.Add(item.GetName());
+            }
         }
 
         private void boxForTemperature_TextChanged(object sender, EventArgs e)
@@ -28,26 +35,6 @@ namespace Temperature
             notDigitError.Visible = false;
 
             double.TryParse(boxForTemperature.Text, out originalTemperature);
-        }
-
-        private void boxForTemperature_Enter(object sender, EventArgs e)
-        {
-            if (originalTemperature != 0)
-            {
-                boxForTemperature.Text = originalTemperature.ToString();
-            }
-            else
-            {
-                boxForTemperature.Text = null;
-            }
-        }
-
-        private void boxForTemperature_Leave(object sender, EventArgs e)
-        {
-            if (boxForTemperature.Text == "")
-            {
-                boxForTemperature.Text = "введите температуру";
-            }
         }
 
         private void boxForTemperature_KeyPress(object sender, KeyPressEventArgs e)
@@ -92,7 +79,21 @@ namespace Temperature
                 return;
             }
 
-            CalculateTemperature();
+            foreach(IScale item in scales)
+            {
+                if(originalScale.Equals(item.GetName()))
+                {
+                    originalScaleObject = item;
+                }
+
+                if(finalScale.Equals(item.GetName()))
+                {
+                    finalScaleObject = item;
+                }
+            }
+
+            originalScaleObject.Value = originalTemperature;
+            finalTemperature = originalScaleObject.GetFinalTemperature(finalScaleObject);
             resultBox.Text = finalTemperature.ToString();
         }
 
@@ -100,38 +101,6 @@ namespace Temperature
         {
             notSelectedError.Visible = false;
             notEnteredError.Visible = false;
-        }
-
-        private void CalculateTemperature()
-        {
-            if (originalScale == "цельсия" && finalScale == "фаренгейта")
-            {
-                finalTemperature = originalTemperature * 1.8 + 32;
-            }
-            else if (originalScale == "цельсия" && finalScale == "кельвина")
-            {
-                finalTemperature = originalTemperature + 273.15;
-            }
-            else if (originalScale == "фаренгейта" && finalScale == "цельсия")
-            {
-                finalTemperature = (originalTemperature - 32) / 1.8;
-            }
-            else if (originalScale == "фаренгейта" && finalScale == "кельвина")
-            {
-                finalTemperature = (originalTemperature - 32) / 1.8 + 273.15;
-            }
-            else if (originalScale == "кельвина" && finalScale == "цельсия")
-            {
-                finalTemperature = originalTemperature - 273.15;
-            }
-            else if (originalScale == "кельвина" && finalScale == "фаренгейта")
-            {
-                finalTemperature = 1.8 * (originalTemperature - 273.15) + 32;
-            }
-            else
-            {
-                finalTemperature = originalTemperature;
-            }
         }
     }
 }
