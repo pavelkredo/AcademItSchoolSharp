@@ -9,7 +9,6 @@ namespace Temperature
     public partial class TemperatureTranslation : Form
     {
         private double originalTemperature;
-        private double finalTemperature;
         private string originalScale;
         private string finalScale;
         private IScale originalScaleObject;
@@ -92,8 +91,7 @@ namespace Temperature
                 }
             }
 
-            finalTemperature = originalScaleObject.ConvertFromCelsius(originalTemperature, finalScaleObject);
-            resultBox.Text = finalTemperature.ToString();
+            resultBox.Text = finalScaleObject.ConvertFromCelsius(originalScaleObject.ConvertToCelsius(originalTemperature)).ToString();
         }
 
         private void translationButton_Leave(object sender, EventArgs e)

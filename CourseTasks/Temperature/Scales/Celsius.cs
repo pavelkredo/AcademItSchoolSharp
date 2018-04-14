@@ -18,24 +18,9 @@ namespace Temperature.Scales
             return value;
         }
 
-        public double ConvertFromCelsius(double value, IScale obj)
+        public double ConvertFromCelsius(double value)
         {
-            if (obj is Celsius)
-            {
-                return value;
-            }
-
-            if (obj is Fahrenheit)
-            {
-                return value * 9 / 5 + 32;
-            }
-
-            if (obj is Kelvin)
-            {
-                return value + 273.15;
-            }
-
-            return 0;
+            return value;
         }
     }
 }

@@ -11,6 +11,6 @@ namespace Temperature.Scales
         string Name { get; }
 
         double ConvertToCelsius(double value);
-        double ConvertFromCelsius(double value, IScale obj);
+        double ConvertFromCelsius(double value);
     }
 }

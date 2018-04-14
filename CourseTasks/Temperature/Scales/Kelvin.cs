@@ -18,10 +18,9 @@ namespace Temperature.Scales
             return value - 273.15;
         }
 
-        public double ConvertFromCelsius(double value, IScale obj)
+        public double ConvertFromCelsius(double value)
         {
-            var ob = new Celsius();
-            return ob.ConvertFromCelsius(ConvertToCelsius(value), obj);
+            return value + 273.15;
         }
     }
 }

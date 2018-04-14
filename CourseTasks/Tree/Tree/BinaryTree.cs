@@ -5,7 +5,7 @@ namespace Tree.Tree
 {
     public class BinaryTree<T>
     {
-        private TreeNode<T> mainNode;
+        private TreeNode<T> root;
         private IComparer<T> comparer;
 
         public BinaryTree()
@@ -22,17 +22,18 @@ namespace Tree.Tree
 
         public void Add(T data)
         {
-            if(mainNode == null)
+            if (root == null)
             {
-                mainNode = new TreeNode<T>(data);
+                root = new TreeNode<T>(data);
                 Count++;
+                return;
             }
 
-            TreeNode<T> currentNode = mainNode;
+            TreeNode<T> currentNode = root;
 
             while (comparer.Compare(data, currentNode.Data) != 0)
             {
-                if (comparer.Compare(currentNode.Data, data) < 0)
+                if (comparer.Compare(data, currentNode.Data) < 0)
                 {
                     if (currentNode.Left != null)
                     {
@@ -63,11 +64,16 @@ namespace Tree.Tree
 
         public bool Contains(T data)
         {
-            TreeNode<T> currentNode = mainNode;
+            if(root == null)
+            {
+                throw new ArgumentNullException("Дерево пусто.");
+            }
+
+            TreeNode<T> currentNode = root;
 
             while (comparer.Compare(data, currentNode.Data) != 0)
             {
-                if (comparer.Compare(currentNode.Data, data) < 0)
+                if (comparer.Compare(data, currentNode.Data) < 0)
                 {
                     if (currentNode.Left != null)
                     {
@@ -98,14 +104,14 @@ namespace Tree.Tree
 
         public void Delete(T data)
         {
-            TreeNode<T> currentNode = mainNode;
+            TreeNode<T> currentNode = root;
             TreeNode<T> parentNode = null;
 
             while (comparer.Compare(data, currentNode.Data) != 0)
             {
                 parentNode = currentNode;
 
-                if (comparer.Compare(currentNode.Data, data) < 0)
+                if (comparer.Compare(data, currentNode.Data) < 0)
                 {
                     if (currentNode.Left != null)
                     {
@@ -184,47 +190,43 @@ namespace Tree.Tree
             Count--;
         }
 
-        public void BreadthTraversal(Func<T> func)
+        public void BreadthTraversal(Action<T> action)
         {
             Queue<TreeNode<T>> queue = new Queue<TreeNode<T>>();
-            queue.Enqueue(mainNode);
+            queue.Enqueue(root);
 
-            while(queue.Count > 0)
+            while (queue.Count > 0)
             {
                 TreeNode<T> element = queue.Dequeue();
-                func();
 
-                if(element.Left != null)
+                if (element.Left != null)
                 {
                     queue.Enqueue(element.Left);
                 }
 
-                if(element.Right != null)
+                if (element.Right != null)
                 {
                     queue.Enqueue(element.Right);
                 }
             }
         }
 
-        public void DepthRecursionTraversal(TreeNode<T> node, Func<T> func)
+        public void DepthRecursionTraversal(TreeNode<T> node, Action<T> action)
         {
-            func();
-
-            foreach(TreeNode<T> child in node.GetChildren())
+            foreach (TreeNode<T> child in node.GetChildren())
             {
-                DepthRecursionTraversal(child, func);
+                DepthRecursionTraversal(child, action);
             }
         }
 
-        public void DepthTraversal(Func<T> func)
+        public void DepthTraversal(Action<T> action)
         {
             Queue<TreeNode<T>> queue = new Queue<TreeNode<T>>();
-            queue.Enqueue(mainNode);
+            queue.Enqueue(root);
 
             while (queue.Count > 0)
             {
                 TreeNode<T> element = queue.Dequeue();
-                func();
 
                 if (element.Right != null)
                 {
