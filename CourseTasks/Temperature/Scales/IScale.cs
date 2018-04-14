@@ -8,9 +8,9 @@ namespace Temperature.Scales
 {
     public interface IScale
     {
-        double Value { get; set; }
+        string Name { get; }
 
-        double GetFinalTemperature(IScale obj);
-        string GetName();
+        double ConvertToCelsius(double value);
+        double ConvertFromCelsius(double value, IScale obj);
     }
 }

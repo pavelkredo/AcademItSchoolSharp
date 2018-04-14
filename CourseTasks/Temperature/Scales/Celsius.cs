@@ -8,41 +8,34 @@ namespace Temperature.Scales
 {
     public class Celsius : IScale
     {
-        private double value;
-
-        public Celsius ()
+        public string Name
         {
+            get { return "цельсий"; }
         }
 
-        public double Value
+        public double ConvertToCelsius(double value)
         {
-            get { return value; }
-            set { this.value = value; }
+            return value;
         }
 
-        public double GetFinalTemperature(IScale obj)
+        public double ConvertFromCelsius(double value, IScale obj)
         {
-            if(obj is Celsius)
+            if (obj is Celsius)
             {
                 return value;
             }
 
-            if(obj is Fahrenheit)
+            if (obj is Fahrenheit)
             {
                 return value * 9 / 5 + 32;
             }
 
-            if(obj is Kelvin)
+            if (obj is Kelvin)
             {
                 return value + 273.15;
             }
 
             return 0;
-        }
-
-        public string GetName()
-        {
-            return "цельсий";
         }
     }
 }

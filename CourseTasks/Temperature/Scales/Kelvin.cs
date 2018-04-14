@@ -8,28 +8,20 @@ namespace Temperature.Scales
 {
     public class Kelvin : IScale
     {
-        private double value;
-
-        public Kelvin()
+        public string Name
         {
+            get { return "кельвин"; }
         }
 
-        public double Value
+        public double ConvertToCelsius(double value)
         {
-            get { return value; }
-            set { this.value = value - 273.15; }
+            return value - 273.15;
         }
 
-        public double GetFinalTemperature(IScale obj)
+        public double ConvertFromCelsius(double value, IScale obj)
         {
-            Celsius temp = new Celsius();
-            temp.Value = value;
-            return temp.GetFinalTemperature(obj);
-        }
-
-        public string GetName()
-        {
-            return "кельвин";
+            var ob = new Celsius();
+            return ob.ConvertFromCelsius(ConvertToCelsius(value), obj);
         }
     }
 }

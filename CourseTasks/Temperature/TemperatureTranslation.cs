@@ -14,7 +14,7 @@ namespace Temperature
         private string finalScale;
         private IScale originalScaleObject;
         private IScale finalScaleObject;
-        List<IScale> scales = new List<IScale> { new Celsius(), new Kelvin(), new Fahrenheit() };
+        private readonly List<IScale> scales = new List<IScale> { new Celsius(), new Fahrenheit(), new Kelvin() };
 
         public TemperatureTranslation()
         {
@@ -23,10 +23,10 @@ namespace Temperature
 
         private void TemperatureTranslation_Load(object sender, EventArgs e)
         {
-            foreach (IScale item in scales)
+            foreach (var item in scales)
             {
-                introducedScale.Items.Add(item.GetName());
-                derivableScale.Items.Add(item.GetName());
+                introducedScale.Items.Add(item.Name);
+                derivableScale.Items.Add(item.Name);
             }
         }
 
@@ -39,8 +39,8 @@ namespace Temperature
 
         private void boxForTemperature_KeyPress(object sender, KeyPressEventArgs e)
         {
-            bool isHandled = true;
-            char character = e.KeyChar;
+            var isHandled = true;
+            var character = e.KeyChar;
 
             if (!(char.IsDigit(character)))
             {
@@ -79,21 +79,20 @@ namespace Temperature
                 return;
             }
 
-            foreach(IScale item in scales)
+            foreach (IScale item in scales)
             {
-                if(originalScale.Equals(item.GetName()))
+                if (originalScale.Equals(item.Name))
                 {
                     originalScaleObject = item;
                 }
 
-                if(finalScale.Equals(item.GetName()))
+                if (finalScale.Equals(item.Name))
                 {
                     finalScaleObject = item;
                 }
             }
 
-            originalScaleObject.Value = originalTemperature;
-            finalTemperature = originalScaleObject.GetFinalTemperature(finalScaleObject);
+            finalTemperature = originalScaleObject.ConvertFromCelsius(originalTemperature, finalScaleObject);
             resultBox.Text = finalTemperature.ToString();
         }
 

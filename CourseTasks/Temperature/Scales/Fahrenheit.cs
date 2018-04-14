@@ -8,28 +8,20 @@ namespace Temperature.Scales
 {
     public class Fahrenheit : IScale
     {
-        private double value;
-
-        public Fahrenheit()
+        public string Name
         {
+            get { return "фаренгейт"; }
         }
 
-        public double Value
+        public double ConvertToCelsius(double value)
         {
-            get { return value; }
-            set { this.value = (value - 32) * 5 / 9; }
-        }
-        
-        public double GetFinalTemperature(IScale obj)
-        {
-            Celsius temp = new Celsius();
-            temp.Value = value;
-            return temp.GetFinalTemperature(obj);
+            return (value - 32) * 5 / 9;
         }
 
-        public string GetName()
+        public double ConvertFromCelsius(double value, IScale obj)
         {
-            return "фаренгейт";
+            var ob = new Celsius();
+            return ob.ConvertFromCelsius(ConvertToCelsius(value), obj);
         }
     }
 }
