@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using Temperature.Scales;
+using Temperature.Temperature;
 
 namespace Temperature
 {
@@ -29,19 +29,19 @@ namespace Temperature
             }
         }
 
-        private void boxForTemperature_TextChanged(object sender, EventArgs e)
+        private void BoxForTemperature_TextChanged(object sender, EventArgs e)
         {
             notDigitError.Visible = false;
 
             double.TryParse(boxForTemperature.Text, out originalTemperature);
         }
 
-        private void boxForTemperature_KeyPress(object sender, KeyPressEventArgs e)
+        private void BoxForTemperature_KeyPress(object sender, KeyPressEventArgs e)
         {
             var isHandled = true;
             var character = e.KeyChar;
 
-            if (!(char.IsDigit(character)))
+            if (!char.IsDigit(character))
             {
                 notDigitError.Visible = true;
             }
@@ -54,17 +54,17 @@ namespace Temperature
             e.Handled = isHandled;
         }
 
-        private void introducedScale_SelectedIndexChanged(object sender, EventArgs e)
+        private void IntroducedScale_SelectedIndexChanged(object sender, EventArgs e)
         {
             originalScale = introducedScale.Text;
         }
 
-        private void derivableScale_SelectedIndexChanged(object sender, EventArgs e)
+        private void DerivableScale_SelectedIndexChanged(object sender, EventArgs e)
         {
             finalScale = derivableScale.Text;
         }
 
-        private void translationButton_Click(object sender, EventArgs e)
+        private void TranslationButton_Click(object sender, EventArgs e)
         {
             if (boxForTemperature.Text == "введите температуру")
             {
@@ -91,10 +91,11 @@ namespace Temperature
                 }
             }
 
-            resultBox.Text = finalScaleObject.ConvertFromCelsius(originalScaleObject.ConvertToCelsius(originalTemperature)).ToString();
+            TemperatureConvertion converter = new TemperatureConvertion();
+            resultBox.Text = converter.ConvertTemperature(originalTemperature, originalScaleObject, finalScaleObject).ToString();
         }
 
-        private void translationButton_Leave(object sender, EventArgs e)
+        private void TranslationButton_Leave(object sender, EventArgs e)
         {
             notSelectedError.Visible = false;
             notEnteredError.Visible = false;

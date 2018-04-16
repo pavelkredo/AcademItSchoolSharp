@@ -66,7 +66,7 @@
             this.derivableScale.Size = new System.Drawing.Size(220, 21);
             this.derivableScale.TabIndex = 4;
             this.derivableScale.TabStop = false;
-            this.derivableScale.SelectedIndexChanged += new System.EventHandler(this.derivableScale_SelectedIndexChanged);
+            this.derivableScale.SelectedIndexChanged += new System.EventHandler(this.DerivableScale_SelectedIndexChanged);
             // 
             // translationButton
             // 
@@ -77,8 +77,8 @@
             this.translationButton.TabStop = false;
             this.translationButton.Text = "ПЕРЕВЕСТИ";
             this.translationButton.UseVisualStyleBackColor = true;
-            this.translationButton.Click += new System.EventHandler(this.translationButton_Click);
-            this.translationButton.Leave += new System.EventHandler(this.translationButton_Leave);
+            this.translationButton.Click += new System.EventHandler(this.TranslationButton_Click);
+            this.translationButton.Leave += new System.EventHandler(this.TranslationButton_Leave);
             // 
             // notDigitError
             // 
@@ -103,8 +103,8 @@
             this.boxForTemperature.TabIndex = 1;
             this.boxForTemperature.TabStop = false;
             this.boxForTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.boxForTemperature.TextChanged += new System.EventHandler(this.boxForTemperature_TextChanged);
-            this.boxForTemperature.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxForTemperature_KeyPress);
+            this.boxForTemperature.TextChanged += new System.EventHandler(this.BoxForTemperature_TextChanged);
+            this.boxForTemperature.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BoxForTemperature_KeyPress);
             // 
             // introducedScale
             // 
@@ -119,7 +119,7 @@
             this.introducedScale.Size = new System.Drawing.Size(220, 21);
             this.introducedScale.TabIndex = 3;
             this.introducedScale.TabStop = false;
-            this.introducedScale.SelectedIndexChanged += new System.EventHandler(this.introducedScale_SelectedIndexChanged);
+            this.introducedScale.SelectedIndexChanged += new System.EventHandler(this.IntroducedScale_SelectedIndexChanged);
             // 
             // notSelectedError
             // 

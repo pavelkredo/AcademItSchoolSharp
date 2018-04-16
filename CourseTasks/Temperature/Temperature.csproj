@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Temperature\TemperatureConvertion.cs" />
     <EmbeddedResource Include="TemperatureTranslation.resx">
       <DependentUpon>TemperatureTranslation.cs</DependentUpon>
     </EmbeddedResource>
