@@ -14,6 +14,7 @@ namespace Temperature
         private IScale originalScaleObject;
         private IScale finalScaleObject;
         private readonly List<IScale> scales = new List<IScale> { new Celsius(), new Fahrenheit(), new Kelvin() };
+        private TemperatureConvertion converter = new TemperatureConvertion();
 
         public TemperatureTranslation()
         {
@@ -90,8 +91,6 @@ namespace Temperature
                     finalScaleObject = item;
                 }
             }
-
-            TemperatureConvertion converter = new TemperatureConvertion();
             resultBox.Text = converter.ConvertTemperature(originalTemperature, originalScaleObject, finalScaleObject).ToString();
         }
 

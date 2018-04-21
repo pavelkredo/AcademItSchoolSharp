@@ -9,13 +9,13 @@ namespace Tree.Main
         public static void Main(string[] args)
         {
             BinaryTree<int> tree = new BinaryTree<int>();
-            tree.Add(1);
-            tree.Add(3);
+            tree.Add(7);
             tree.Add(4);
             tree.Add(6);
-            tree.Add(7);
-            tree.Add(8);
+            tree.Add(1);
+            tree.Add(3);
             tree.Add(10);
+            tree.Add(8);
             tree.Add(13);
             tree.Add(14);
             tree.Add(2);
@@ -23,9 +23,9 @@ namespace Tree.Main
             Console.WriteLine(tree.Contains(1));
             Console.WriteLine(tree.Count);
 
-            tree.Delete(6);
+            tree.Delete(14);
 
-            Console.WriteLine(tree.Contains(6));
+            Console.WriteLine(tree.Contains(14));
             Console.WriteLine(tree.Count);
         }
     }
