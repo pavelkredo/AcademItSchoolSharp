@@ -31,17 +31,14 @@ namespace Tree.Tree
 
             TreeNode<T> currentNode = root;
 
-            int compareResult = comparer.Compare(data, currentNode.Data);
-
-            while (compareResult != 0)
+            while (true)
             {
-                if (compareResult < 0)
+                if (comparer.Compare(data, currentNode.Data) < 0)
                 {
 
                     if (currentNode.Left != null)
                     {
                         currentNode = currentNode.Left;
-                        compareResult = comparer.Compare(data, currentNode.Data);
                         continue;
                     }
                     else
@@ -56,7 +53,6 @@ namespace Tree.Tree
                     if (currentNode.Right != null)
                     {
                         currentNode = currentNode.Right;
-                        compareResult = comparer.Compare(data, currentNode.Data);
                         continue;
                     }
                     else
@@ -73,21 +69,32 @@ namespace Tree.Tree
         {
             if (root == null)
             {
-                throw new ArgumentNullException("Дерево пусто.");
+                return false;
             }
 
             TreeNode<T> currentNode = root;
 
-            int compareResult = comparer.Compare(data, currentNode.Data);
-
-            while (compareResult != 0)
+            while (true)
             {
+                int compareResult = comparer.Compare(data, currentNode.Data);
+
                 if (compareResult < 0)
                 {
                     if (currentNode.Left != null)
                     {
                         currentNode = currentNode.Left;
-                        compareResult = comparer.Compare(data, currentNode.Data);
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (compareResult > 0)
+                {
+                    if (currentNode.Right != null)
+                    {
+                        currentNode = currentNode.Right;
                         continue;
                     }
                     else
@@ -97,20 +104,9 @@ namespace Tree.Tree
                 }
                 else
                 {
-                    if (currentNode.Right != null)
-                    {
-                        currentNode = currentNode.Right;
-                        compareResult = comparer.Compare(data, currentNode.Data);
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
             }
-
-            return true;
         }
 
         public void Delete(T data)
@@ -118,10 +114,15 @@ namespace Tree.Tree
             TreeNode<T> currentNode = root;
             TreeNode<T> parentNode = null;
 
-            int compareResult = comparer.Compare(data, currentNode.Data);
-
-            while (compareResult != 0)
+            while (true)
             {
+                int compareResult = comparer.Compare(data, currentNode.Data);
+
+                if (compareResult == 0)
+                {
+                    break;
+                }
+
                 parentNode = currentNode;
 
                 if (compareResult < 0)
@@ -129,12 +130,11 @@ namespace Tree.Tree
                     if (currentNode.Left != null)
                     {
                         currentNode = currentNode.Left;
-                        compareResult = comparer.Compare(data, currentNode.Data);
                         continue;
                     }
                     else
                     {
-                        return;
+                        break;
                     }
                 }
                 else
@@ -142,12 +142,11 @@ namespace Tree.Tree
                     if (currentNode.Right != null)
                     {
                         currentNode = currentNode.Right;
-                        compareResult = comparer.Compare(data, currentNode.Data);
                         continue;
                     }
                     else
                     {
-                        return;
+                        break;
                     }
                 }
             }
@@ -273,6 +272,11 @@ namespace Tree.Tree
 
         public void BreadthTraversal(Action<T> action)
         {
+            if (root == null)
+            {
+                return;
+            }
+
             Queue<TreeNode<T>> queue = new Queue<TreeNode<T>>();
             queue.Enqueue(root);
 
@@ -295,16 +299,24 @@ namespace Tree.Tree
 
         public void DepthRecursionTraversal(TreeNode<T> node, Action<T> action)
         {
+            if(node == null)
+            {
+                return;
+            }
+
             action(node.Data);
 
-            foreach (TreeNode<T> child in node.GetChildren())
-            {
-                DepthRecursionTraversal(child, action);
-            }
+            DepthRecursionTraversal(node.Left, action);
+            DepthRecursionTraversal(node.Right, action);
         }
 
         public void DepthTraversal(Action<T> action)
         {
+            if (root == null)
+            {
+                return;
+            }
+
             Queue<TreeNode<T>> queue = new Queue<TreeNode<T>>();
             queue.Enqueue(root);
 

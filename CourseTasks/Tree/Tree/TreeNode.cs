@@ -14,10 +14,5 @@
         public TreeNode<T> Left { get; set; }
 
         public TreeNode<T> Right { get; set; }
-
-        public TreeNode<T>[] GetChildren()
-        {
-            return new TreeNode<T>[] { Left, Right };
-        }
     }
 }
