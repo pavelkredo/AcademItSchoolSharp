@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D3F55FDD-582E-4EFB-BBC2-56C395BF7365}</ProjectGuid>
+    <ProjectGuid>{9E343F0B-7099-44A6-8F19-D98D77C6A29F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Persons</RootNamespace>
-    <AssemblyName>Persons</AssemblyName>
+    <RootNamespace>Person</RootNamespace>
+    <AssemblyName>Person</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main\MainClass.cs" />
-    <Compile Include="Person\Person.cs" />
+    <Compile Include="Person\PersonClass.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

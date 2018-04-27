@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Tree.Tree;
 
 namespace Tree.Main
@@ -23,9 +22,9 @@ namespace Tree.Main
             Console.WriteLine(tree.Contains(1));
             Console.WriteLine(tree.Count);
 
-            tree.Delete(14);
+            tree.Delete(4);
 
-            Console.WriteLine(tree.Contains(14));
+            Console.WriteLine(tree.Contains(3));
             Console.WriteLine(tree.Count);
         }
     }
