@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Graph.Graph
 {
-    class GraphClass
+    class Graph
     {
         private int[,] graph;
 
-        public GraphClass(int[,] matrix)
+        public Graph(int[,] matrix)
         {
             graph = matrix;
         }
 
-        public void BreadthTraversal()
+        public void BreadthTraversal(Action<int> action)
         {
             int length = graph.GetLength(0);
             bool[] visited = new bool[length];
@@ -29,6 +29,7 @@ namespace Graph.Graph
                     if (!visited[number])
                     {
                         visited[i] = true;
+                        action(number);
 
                         for (int j = 0; j < length; j++)
                         {
@@ -42,7 +43,7 @@ namespace Graph.Graph
             }
         }
 
-        public void DepthTraversal(bool[] visited)
+        private void StartDepthTraversal(bool[] visited, Action<int> action)
         {
             int length = graph.GetLength(0);
 
@@ -56,16 +57,17 @@ namespace Graph.Graph
                     {
                         if (graph[i, j] == 1)
                         {
-                            DepthTraversal(visited);
+                            action(graph[i, j]);
+                            StartDepthTraversal(visited, action);
                         }
                     }
                 }
             }
         }
 
-        public void StartDepthTraversal()
+        public void DepthTraversal(Action<int> action)
         {
-            DepthTraversal(new bool[graph.GetLength(0)]);
+            StartDepthTraversal(new bool[graph.GetLength(0)], action);
         }
     }
 }

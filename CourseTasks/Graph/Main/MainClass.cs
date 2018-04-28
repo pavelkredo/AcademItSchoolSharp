@@ -21,9 +21,7 @@ namespace Graph.Main
                 { 1, 0, 1, 0, 0, 0, 0}
             };
 
-            GraphClass graph = new GraphClass(matrix);
-
-            graph.BreadthTraversal();
+            Graph.Graph graph = new Graph.Graph(matrix);
         }
     }
 }
