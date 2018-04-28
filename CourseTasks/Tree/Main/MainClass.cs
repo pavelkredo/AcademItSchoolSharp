@@ -22,7 +22,7 @@ namespace Tree.Main
             Console.WriteLine(tree.Contains(1));
             Console.WriteLine(tree.Count);
 
-            tree.Delete(4);
+            tree.Delete(2);
 
             Console.WriteLine(tree.Contains(3));
             Console.WriteLine(tree.Count);

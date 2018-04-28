@@ -136,7 +136,7 @@ namespace Tree.Tree
                     }
                     else
                     {
-                        break;
+                        return false;
                     }
                 }
                 else
@@ -148,7 +148,7 @@ namespace Tree.Tree
                     }
                     else
                     {
-                        break;
+                        return false;
                     }
                 }
             }
@@ -164,7 +164,7 @@ namespace Tree.Tree
                     return true;
                 }
 
-                if (parentNode.Left != null && comparer.Compare(parentNode.Left.Data, data) == 0)
+                if (parentNode.Left == currentNode)
                 {
                     parentNode.Left = null;
                 }
@@ -194,7 +194,7 @@ namespace Tree.Tree
                     return true;
                 }
 
-                if (parentNode.Left != null && comparer.Compare(parentNode.Left.Data, data) == 0)
+                if (parentNode.Left == currentNode)
                 {
                     if (currentNode.Left != null)
                     {
@@ -243,11 +243,11 @@ namespace Tree.Tree
                     return true;
                 }
 
-                if (parentNode.Left != null && comparer.Compare(parentNode.Left.Data, currentNode.Data) == 0)
+                if (parentNode.Left == currentNode)
                 {
                     parentNode.Left.Data = value;
                 }
-                else if (comparer.Compare(parentNode.Right.Data, currentNode.Data) == 0)
+                else if (parentNode.Right == currentNode)
                 {
                     parentNode.Right.Data = value;
                 }
