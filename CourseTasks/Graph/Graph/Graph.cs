@@ -21,22 +21,21 @@ namespace Graph.Graph
             bool[] visited = new bool[length];
 
             Queue<int> queue = new Queue<int>();
+            queue.Enqueue(0);
 
-            for (int i = 0; i < length; i++)
+            while (queue.Count != 0)
             {
-                for (int number = 0; number < queue.Count(); number = queue.Dequeue())
-                {
-                    if (!visited[number])
-                    {
-                        visited[i] = true;
-                        action(number);
+                int number = queue.Dequeue();
 
-                        for (int j = 0; j < length; j++)
+                for (int i = 0; i < length; i++)
+                {
+                    if (graph[number, i] == 1)
+                    {
+                        if (!visited[i])
                         {
-                            if (graph[number, j] == 1)
-                            {
-                                queue.Enqueue(j);
-                            }
+                            action(i);
+                            visited[i] = true;
+                            queue.Enqueue(i);
                         }
                     }
                 }
@@ -57,7 +56,7 @@ namespace Graph.Graph
                     {
                         if (graph[i, j] == 1)
                         {
-                            action(graph[i, j]);
+                            action(j);
                             StartDepthTraversal(visited, action);
                         }
                     }
