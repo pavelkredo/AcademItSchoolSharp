@@ -40,9 +40,9 @@ namespace Graph.Graph
                     }
                 }
 
-                for(int i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
-                    if(!visited[i])
+                    if (!visited[i])
                     {
                         visited[i] = true;
                         action(i);
