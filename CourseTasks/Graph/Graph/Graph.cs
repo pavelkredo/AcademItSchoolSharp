@@ -33,10 +33,21 @@ namespace Graph.Graph
                     {
                         if (!visited[i])
                         {
-                            action(i);
                             visited[i] = true;
+                            action(i);
                             queue.Enqueue(i);
                         }
+                    }
+                }
+
+                for(int i = 0; i < length; i++)
+                {
+                    if(!visited[i])
+                    {
+                        visited[i] = true;
+                        action(i);
+                        queue.Enqueue(i);
+                        break;
                     }
                 }
             }
@@ -48,17 +59,30 @@ namespace Graph.Graph
 
             for (int i = 0; i < length; i++)
             {
-                if (!visited[i])
+                for (int j = 0; j < length; j++)
                 {
-                    visited[i] = true;
-
-                    for (int j = 0; j < length; j++)
+                    if (graph[i, j] == 1)
                     {
-                        if (graph[i, j] == 1)
+                        if (!visited[j])
                         {
+                            visited[j] = true;
                             action(j);
                             StartDepthTraversal(visited, action);
                         }
+                    }
+
+                }
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = 0; j < length; j++)
+                {
+                    if (!visited[j])
+                    {
+                        visited[j] = true;
+                        action(j);
+                        StartDepthTraversal(visited, action);
                     }
                 }
             }

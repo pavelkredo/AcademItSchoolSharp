@@ -11,7 +11,7 @@ namespace Graph.Main
     {
         static void Main(string[] args)
         {
-            int[,] matrix = {
+            /*int[,] matrix = {
                 { 0, 1, 0, 0, 0, 1, 1},
                 { 1, 0, 0, 1, 1, 1, 0},
                 { 0, 0, 0, 1, 0, 0, 1},
@@ -19,11 +19,21 @@ namespace Graph.Main
                 { 0, 1, 0, 1, 0, 0, 0},
                 { 1, 1, 0, 0, 0, 0, 0},
                 { 1, 0, 1, 0, 0, 0, 0}
+            }; */
+
+            int[,] matrix = {
+                { 0, 1, 0, 0, 0, 1, 1},
+                { 1, 0, 0, 0, 1, 1, 0},
+                { 0, 0, 0, 0, 0, 0, 0},
+                { 0, 0, 0, 0, 0, 0, 0},
+                { 0, 1, 0, 0, 0, 0, 0},
+                { 1, 1, 0, 0, 0, 0, 0},
+                { 1, 0, 0, 0, 0, 0, 0}
             };
 
             Graph.Graph graph = new Graph.Graph(matrix);
 
-            graph.BreadthTraversal(Console.WriteLine);
+            graph.DepthTraversal(Console.WriteLine);
         }
     }
 }
