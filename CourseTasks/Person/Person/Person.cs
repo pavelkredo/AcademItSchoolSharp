@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Person.Person
 {
-    class PersonClass
+    class Person
     {
-        public PersonClass(string name, int age)
+        public Person(string name, int age)
         {
             Name = name;
             Age = age;
