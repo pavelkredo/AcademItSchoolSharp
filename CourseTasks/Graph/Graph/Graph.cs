@@ -22,10 +22,12 @@ namespace Graph.Graph
 
             Queue<int> queue = new Queue<int>();
             queue.Enqueue(0);
+            visited[0] = true;
 
             while (queue.Count != 0)
             {
                 int number = queue.Dequeue();
+                action(number);
 
                 for (int i = 0; i < length; i++)
                 {
@@ -34,7 +36,6 @@ namespace Graph.Graph
                         if (!visited[i])
                         {
                             visited[i] = true;
-                            action(i);
                             queue.Enqueue(i);
                         }
                     }
@@ -45,7 +46,6 @@ namespace Graph.Graph
                     if (!visited[i])
                     {
                         visited[i] = true;
-                        action(i);
                         queue.Enqueue(i);
                         break;
                     }
@@ -53,11 +53,17 @@ namespace Graph.Graph
             }
         }
 
-        private void StartDepthTraversal(bool[] visited, Action<int> action)
+        private void StartDepthTraversal(int startVertex, bool[] visited, Action<int> action)
         {
+            if (!visited[startVertex])
+            {
+                action(startVertex);
+                visited[startVertex] = true;
+            }
+
             int length = graph.GetLength(0);
 
-            for (int i = 0; i < length; i++)
+            for (int i = startVertex; i < length; i++)
             {
                 for (int j = 0; j < length; j++)
                 {
@@ -65,24 +71,19 @@ namespace Graph.Graph
                     {
                         if (!visited[j])
                         {
-                            visited[j] = true;
-                            action(j);
-                            StartDepthTraversal(visited, action);
+                            StartDepthTraversal(j, visited, action);
                         }
                     }
-
                 }
             }
 
-            for (int i = 0; i < length; i++)
+            for (int i = startVertex; i < length; i++)
             {
                 for (int j = 0; j < length; j++)
                 {
                     if (!visited[j])
                     {
-                        visited[j] = true;
-                        action(j);
-                        StartDepthTraversal(visited, action);
+                        StartDepthTraversal(j, visited, action);
                     }
                 }
             }
@@ -90,7 +91,7 @@ namespace Graph.Graph
 
         public void DepthTraversal(Action<int> action)
         {
-            StartDepthTraversal(new bool[graph.GetLength(0)], action);
+            StartDepthTraversal(0, new bool[graph.GetLength(0)], action);
         }
     }
 }
