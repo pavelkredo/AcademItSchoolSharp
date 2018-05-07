@@ -11,29 +11,28 @@ namespace Person.Main
     {
         public static void Main(string[] args)
         {
-            List<Person.Person> personList = new List<Person.Person>
+            var personList = new List<Person.Person>
             {
-            new Person.Person("Петр", 22),
-            new Person.Person("Светлана", 35),
-            new Person.Person("Евгений", 26),
-            new Person.Person("Сергей", 15),
-            new Person.Person("Петр", 26),
-            new Person.Person("Диана", 12)
+                new Person.Person("Петр", 22),
+                new Person.Person("Светлана", 35),
+                new Person.Person("Евгений", 26),
+                new Person.Person("Сергей", 15),
+                new Person.Person("Петр", 26),
+                new Person.Person("Диана", 12)
             };
 
-
-            List<string> nameList = personList.Select(x => x.Name).Distinct().ToList();
-            nameList.ForEach(x => Console.WriteLine(x));
+            var nameList = personList.Select(x => x.Name).Distinct().ToList();
+            nameList.ForEach(Console.WriteLine);
 
             Console.WriteLine();
 
-            List<int> ageList = personList.Select(x => x.Age).ToList();
-            double averageAge = ageList.Where(x => x < 18).Average();
+            var ageList = personList.Select(x => x.Age).Where(x => x < 18).ToList();
+            var averageAge = ageList.Average();
             Console.WriteLine(averageAge);
 
             Console.WriteLine();
 
-            Dictionary<string, double> dictionary = personList.GroupBy(x => x.Name, y => y.Age).ToDictionary(x => x.Key, y => y.Average());
+            var dictionary = personList.GroupBy(x => x.Name, x => x.Age).ToDictionary(x => x.Key, x => x.Average());
 
             foreach (var variable in dictionary)
             {
@@ -42,7 +41,7 @@ namespace Person.Main
 
             Console.WriteLine();
 
-            List<Person.Person> newPersonList = personList.Where(x => x.Age >= 20 && x.Age <= 45).OrderByDescending(x => x.Age).ToList();
+            var newPersonList = personList.Where(x => x.Age >= 20 && x.Age <= 45).OrderByDescending(x => x.Age).ToList();
             newPersonList.ForEach(x => Console.WriteLine(x.Name + " " + x.Age));
         }
     }
