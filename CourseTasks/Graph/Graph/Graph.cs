@@ -61,31 +61,38 @@ namespace Graph.Graph
             }
         }
 
-        private void StartDepthTraversal(int vertex, bool[] visited, Action<int> action)
+        private void StartDepthTraversal(int vertex, int length,  bool[] visited, Action<int> action)
         {
             if (!visited[vertex])
             {
                 visited[vertex] = true;
                 action(vertex);
 
-                for (int i = 0; i < visited.Length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (graph[vertex, i] == 1)
                     {
-                        StartDepthTraversal(i, visited, action);
+                        StartDepthTraversal(i, length, visited, action);
                     }
-                }
-
-                for (int i = 0; i < visited.Length; i++)
-                {
-                    StartDepthTraversal(i, visited, action);
                 }
             }
         }
 
         public void DepthTraversal(Action<int> action)
         {
-            StartDepthTraversal(0, new bool[graph.GetLength(0)], action);
+            int length = graph.GetLength(0);
+
+            if(length == 0)
+            {
+                return;
+            }
+
+            bool[] visited = new bool[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                StartDepthTraversal(i, length, visited, action);
+            }
         }
     }
 }
