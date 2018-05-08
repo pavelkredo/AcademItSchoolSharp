@@ -33,7 +33,7 @@ namespace Graph.Main
 
             Graph.Graph graph = new Graph.Graph(matrix);
 
-            graph.DepthTraversal(Console.WriteLine);
+            graph.BreadthTraversal(Console.WriteLine);
         }
     }
 }
