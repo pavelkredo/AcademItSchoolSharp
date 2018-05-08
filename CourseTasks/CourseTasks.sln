@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person", "Person\Person.csproj", "{9E343F0B-7099-44A6-8F19-D98D77C6A29F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper", "Minesweeper\Minesweeper.csproj", "{487AAB38-5ABD-4266-ABB8-617299463E77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9E343F0B-7099-44A6-8F19-D98D77C6A29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E343F0B-7099-44A6-8F19-D98D77C6A29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E343F0B-7099-44A6-8F19-D98D77C6A29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487AAB38-5ABD-4266-ABB8-617299463E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487AAB38-5ABD-4266-ABB8-617299463E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487AAB38-5ABD-4266-ABB8-617299463E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487AAB38-5ABD-4266-ABB8-617299463E77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
