@@ -30,27 +30,28 @@ namespace Graph.Graph
 
             for (int i = 0; i < length; i++)
             {
-                queue.Enqueue(i);
-
-                while (queue.Count > 0)
+                if (!visited[i])
                 {
-                    int element = queue.Dequeue();
+                    queue.Enqueue(i);
 
-                    if (!visited[element])
+                    while (queue.Count > 0)
                     {
-                        visited[element] = true;
+                        int element = queue.Dequeue();
 
-                        action(element);
-
-                        for (int j = 0; j < length; j++)
+                        if (!visited[element])
                         {
-                            if (graph[element, j] == 1)
+                            visited[element] = true;
+
+                            action(element);
+
+                            for (int j = 0; j < length; j++)
                             {
-                                queue.Enqueue(j);
+                                if (graph[element, j] == 1 && !visited[j])
+                                {
+                                    queue.Enqueue(j);
+                                }
                             }
                         }
-
-                        continue;
                     }
                 }
             }
