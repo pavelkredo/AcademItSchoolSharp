@@ -42,15 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextUi\Console.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Gui\" />
-    <Folder Include="Logic\" />
-    <Folder Include="TextUi\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
